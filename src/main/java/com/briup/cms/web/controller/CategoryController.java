@@ -1,7 +1,7 @@
 package com.briup.cms.web.controller;
 
-import com.briup.cms.bean.Link;
-import com.briup.cms.service.ILinkService;
+import com.briup.cms.bean.Category;
+import com.briup.cms.service.ICategoryService;
 import com.briup.cms.util.Message;
 import com.briup.cms.util.MessageUtil;
 import io.swagger.annotations.Api;
@@ -16,47 +16,47 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/link")
-@Api(description = "链接管理")
-public class LinkController {
+@RequestMapping("/category")
+@Api(description = "栏目管理")
+public class CategoryController {
 
     @Autowired
-    private ILinkService linkService;
+    private ICategoryService categoryService;
 
     @PostMapping("/add")
-    @ApiOperation("添加链接")
-    public Message addLink(Link link) {
-        linkService.savaOrUpdateLink(link);
+    @ApiOperation("添加栏目")
+    public Message addCategory(Category category) {
+        categoryService.savaOrUpdateCategory(category);
         return MessageUtil.success();
     }
 
     @GetMapping("/delete")
-    @ApiOperation("删除链接")
+    @ApiOperation("删除栏目")
     @ApiImplicitParam(name = "id",paramType = "query",dataType = "int",required = true)
-    public Message deleteLink(int id) {
-        linkService.deleteLink(id);
+    public Message deleteCategory(int id) {
+        categoryService.deleteCategory(id);
         return MessageUtil.success();
     }
 
-    @GetMapping("/queryById")
+    @GetMapping("queryById")
     @ApiOperation("根据id查询")
     @ApiImplicitParam(name = "id",paramType = "query",dataType = "int",required = true)
-    public Message<Link> queryById(int id) {
-        Link link = linkService.queryById(id);
-        return MessageUtil.success(link);
+    public Message<Category> queryById(int id) {
+        categoryService.queryById(id);
+        return MessageUtil.success();
     }
 
-    @GetMapping("/update")
+    @GetMapping("update")
     @ApiOperation("更新")
-    public Message update(Link link) {
-        linkService.savaOrUpdateLink(link);
+    public Message update(Category category) {
+        categoryService.savaOrUpdateCategory(category);
         return MessageUtil.success();
     }
 
     @GetMapping("/getAll")
-    @ApiOperation("获取所有链接数据")
-    public Message<List<Link>> getAll() {
-        List<Link> links = linkService.getAllLink();
-        return MessageUtil.success(links);
+    @ApiOperation("获取所有栏目")
+    public Message<List<Category>> getAll() {
+        List<Category> categories = categoryService.getAllCategory();
+        return MessageUtil.success(categories);
     }
 }
